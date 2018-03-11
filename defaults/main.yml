@@ -1,0 +1,42 @@
+---
+# defaults file for keepalived
+
+# List of packages names to install
+keepalived__packages_names:
+ - keepalived
+
+# The name of the service
+keepalived__service_name: keepalived
+
+# If the daemon must be enabled
+keepalived__service_enabled: True
+
+# The path to the daemon environment file if available
+#keepalived__config_vars_file
+
+# Directory where the main configuration is
+keepalived__config_dir: /etc/keepalived
+
+# the path to the configuration file
+keepalived__config_file: '{{ keepalived__config_dir }}/keepalived.conf'
+
+keepalived__global_defs_default: {}
+keepalived__global_defs_global: {}
+keepalived__global_defs_group: {}
+keepalived__global_defs_host: {}
+
+# Merged dict of globals defs
+keepalived__global_defs: '{{
+  keepalived__global_defs_default
+  |combine(keepalived__global_defs_global)
+  |combine(keepalived__global_defs_group)
+  |combine(keepalived__global_defs_host)
+}}'
+
+# Dict which contains all VRRP instances
+keepalived__vrrp_instances: {}
+
+# Default parameters that will be applied to all instances
+# they can be overrided by the instance dict in keepalived__vrrp_instances
+keepalived__vrrp_instance_default_settings:
+  priority: 100

@@ -1,0 +1,20 @@
+---
+
+- name: Configure daemon environment variables
+  template:
+    src:    keepalived.default.j2
+    dest:   '{{ keepalived__config_vars_file }}'
+    owner:  root
+    group:  root
+    mode:   0644
+  when: keepalived__config_vars_file is defined
+  notify: [ 'restart-keepalived' ]
+
+- name: Configure keepalived
+  template:
+    src:    keepalived.conf.j2
+    dest:   '{{ keepalived__config_file }}'
+    owner:  root
+    group:  root
+    mode:   0640
+  notify: [ 'reload-keepalived' ]

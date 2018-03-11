@@ -1,0 +1,3 @@
+---
+
+keepalived__config_vars_file: /etc/sysconfig/keepalived

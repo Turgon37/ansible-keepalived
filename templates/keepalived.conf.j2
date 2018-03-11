@@ -1,0 +1,22 @@
+{%- import '_macros.j2' as macros with context -%}
+#
+# {{ ansible_managed }}
+#
+
+{% if keepalived__global_defs.keys()|length > 0 %}
+global_defs {
+{%   for key, value in keepalived__global_defs|dictsort %}
+{{ macros.configurationItem(key, value)|indent(2, true) }}
+{%   endfor %}
+}
+{% endif %}
+
+{% set _internally_handled_keys = ['name'] %}
+{% for name, instance in keepalived__vrrp_instances|dictsort %}
+vrrp_instance {{ name }} {
+{% set instance = keepalived__vrrp_instance_default_settings|combine(instance) %}
+{%   for key, value in instance|dictsort if key not in _internally_handled_keys %}
+{{ macros.configurationItem(key, value)|indent(2, true) }}
+{%   endfor %}
+}
+{% endfor %}

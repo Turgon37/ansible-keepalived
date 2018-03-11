@@ -1,0 +1,14 @@
+---
+# handlers file for keepalived
+
+- name: restart-keepalived
+  service:
+    name: '{{ keepalived__service_name }}'
+    state: restarted
+  when: keepalived__service_enabled|bool
+
+- name: reload-keepalived
+  service:
+    name: '{{ keepalived__service_name }}'
+    state: reloaded
+  when: keepalived__service_enabled|bool

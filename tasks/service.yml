@@ -1,0 +1,7 @@
+---
+
+- name: Ensure keepalived is started and enabled on boot
+  service:
+    name:    '{{ keepalived__service_name }}'
+    enabled: '{{ keepalived__service_enabled|bool }}'
+    state:   "{{ keepalived__service_enabled|bool|ternary('started', 'stopped') }}"

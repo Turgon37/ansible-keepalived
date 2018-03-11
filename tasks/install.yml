@@ -1,0 +1,7 @@
+---
+
+- name: Install the keepalived packages
+  package:
+    name:  '{{ item }}'
+    state: present
+  with_items: '{{ keepalived__packages_names }}'
