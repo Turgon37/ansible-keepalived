@@ -18,3 +18,10 @@
     group:  root
     mode:   0640
   notify: [ 'reload-keepalived' ]
+
+- name: Allow host services to bind on non local ip
+  sysctl:
+    name:        net.ipv4.ip_nonlocal_bind
+    value:       1
+    sysctl_file: "{{ sysctl__dir|d('/etc/sysctl.d') }}/keepalived.conf"
+    state:       present
